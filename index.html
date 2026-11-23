@@ -1,1 +1,192 @@
 
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAN555 - Gaming Website</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b1020;
+    color: white;
+}
+
+header {
+    background: #151b35;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #8b5cf6;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.hero {
+    text-align: center;
+    padding: 65px 20px;
+    background: linear-gradient(135deg,#312e81,#581c87);
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #ddd;
+}
+
+button {
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #6d28d9;
+}
+
+.games {
+    padding: 40px 8%;
+    text-align: center;
+}
+
+.game-card {
+    background: #1b2340;
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 350px;
+    margin: 20px auto;
+}
+
+.game-icon {
+    font-size: 65px;
+}
+
+#game {
+    display: none;
+}
+
+#score {
+    font-size: 30px;
+    color: #a78bfa;
+}
+
+footer {
+    text-align: center;
+    background: #151b35;
+    padding: 20px;
+    color: #aaa;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🎮 NAN555</div>
+    <nav>
+        <a href="#home">หน้าแรก</a>
+        <a href="#games">เกม</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h1>WELCOME TO NAN555</h1>
+    <p>โลกแห่งความสนุก เริ่มต้นได้ที่นี่!</p>
+    <button onclick="startGame()">PLAY NOW</button>
+</section>
+
+<section class="games" id="games">
+    <h1>🎮 เกมแนะนำ</h1>
+
+    <div class="game-card">
+        <div class="game-icon">🎯</div>
+        <h2>เกมกดปุ่ม</h2>
+        <p>กดปุ่มให้ได้มากที่สุดภายใน 15 วินาที</p>
+        <button onclick="startGame()">เริ่มเล่น</button>
+    </div>
+
+    <div id="game" class="game-card">
+        <h2>เกมกดปุ่ม NAN555</h2>
+        <p>คะแนนของคุณ</p>
+        <div id="score">0</div>
+        <p>เวลา: <span id="time">15</span> วินาที</p>
+        <button id="clickBtn" onclick="addScore()">กดเลย!</button>
+        <p id="result"></p>
+        <button onclick="startGame()">เล่นใหม่</button>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 NAN555 Gaming Website</p>
+    <p>สร้างขึ้นเพื่อความสนุกของทุกคน</p>
+</footer>
+
+<script>
+let score = 0;
+let time = 15;
+let timer;
+let playing = false;
+
+function startGame() {
+    document.getElementById("game").style.display = "block";
+
+    score = 0;
+    time = 15;
+    playing = true;
+
+    document.getElementById("score").innerText = score;
+    document.getElementById("time").innerText = time;
+    document.getElementById("result").innerText = "";
+
+    clearInterval(timer);
+
+    timer = setInterval(function() {
+        time--;
+        document.getElementById("time").innerText = time;
+
+        if (time <= 0) {
+            clearInterval(timer);
+            playing = false;
+            document.getElementById("result").innerText =
+                "หมดเวลา! คุณได้ " + score + " คะแนน";
+        }
+    }, 1000);
+
+    document.getElementById("game").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function addScore() {
+    if (!playing) return;
+
+    score++;
+    document.getElementById("score").innerText = score;
+}
+</script>
+
+</body>
+</html>
